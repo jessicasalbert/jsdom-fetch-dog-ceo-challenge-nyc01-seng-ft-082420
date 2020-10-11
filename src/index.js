@@ -2,6 +2,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     fetchImages()
     fetchBreeds()
+    clickHandler()
 })
 
 function fetchImages() {
@@ -44,7 +45,7 @@ function renderBreeds(array) {
     const dogUl = document.querySelector("#dog-breeds")
     for (breed of array) {
         const breedLi = document.createElement("li.breed")
-        breedLi.textContent = breed
+        breedLi.innerHTML = breed + "<br>"
         dogUl.append(breedLi)
     }
 }
@@ -54,4 +55,12 @@ function fetchBreeds() {
     .then( res => res.json() )
     .then(breeds => renderBreeds(getBreeds(breeds['message'])))
     .catch( error => console.log(error.message))
+}
+
+function clickHandler() {
+    const dogUl = document.querySelector("#dog-breeds")
+    dogUl.addEventListener('click', e => {
+        e.target.style.color = "red"
+        
+    })
 }
