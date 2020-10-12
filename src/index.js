@@ -44,8 +44,9 @@ function getBreeds(breedObj) {
 function renderBreeds(array) {
     const dogUl = document.querySelector("#dog-breeds")
     for (breed of array) {
-        const breedLi = document.createElement("li.breed")
-        breedLi.innerHTML = breed + "<br>"
+        const breedLi = document.createElement("li")
+        breedLi.classList.add("breed")
+        breedLi.innerHTML = breed 
         dogUl.append(breedLi)
     }
 }
