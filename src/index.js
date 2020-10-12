@@ -54,7 +54,11 @@ function renderBreeds(array) {
 function fetchBreeds() {
     fetch('https://dog.ceo/api/breeds/list/all')
     .then( res => res.json() )
-    .then(breeds => renderBreeds(getBreeds(breeds['message'])))
+    .then(breeds => {
+        renderBreeds(getBreeds(breeds['message']))
+        filterBreeds(dropDown())
+        filterHandler()
+    })
     .catch( error => console.log(error.message))
 }
 
@@ -63,5 +67,32 @@ function clickHandler() {
     dogUl.addEventListener('click', e => {
         e.target.style.color = "red"
         
+    })
+}
+
+
+function filterBreeds(letter) {
+    const allBreeds = document.querySelectorAll(".breed")
+    console.log(letter)
+    for (breed of allBreeds) {
+        if (breed.textContent[0] !== letter) {
+            breed.hidden = true
+        } else if (breed.hidden) {
+            breed.removeAttribute("hidden")
+        }
+    }
+}
+
+function dropDown() {
+    const drop = document.querySelector("#breed-dropdown")
+    const selected = drop.options[drop.selectedIndex].value
+    console.log(selected)
+    return selected
+}
+
+function filterHandler() {
+    const drop = document.querySelector("#breed-dropdown")
+    drop.addEventListener("change", e => {
+        filterBreeds(dropDown())
     })
 }
